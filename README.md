@@ -2,6 +2,8 @@
 
 A Zsh plugin that brings the power of Large Language Models (LLMs) directly to your terminal. It helps you understand complex shell commands and generates commands from natural language descriptions.
 
+[![asciicast](https://asciinema.org/a/766476.svg)](https://asciinema.org/a/766476)
+
 ## Features
 
 -   **Explain Command (`Ctrl+X` `e`)**: Get a clear, plain-English explanation of the command currently in your buffer.
