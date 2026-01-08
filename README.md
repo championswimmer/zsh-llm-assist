@@ -12,12 +12,12 @@ A Zsh plugin that brings the power of Large Language Models (LLMs) directly to y
 
 ## Prerequisites
 
-1.  **Zsh**: (Version 5.0 or later recommended).
-2.  **CLI Tool**: You must have at least one of the supported LLM CLI tools installed and available in your `$PATH`:
-    -   `copilot` (GitHub Copilot CLI)
-    -   `gemini` (Google Gemini CLI)
-    -   `claude` (Anthropic Claude CLI)
-    -   `codex` (OpenAI Codex/GPT CLI)
+**IMPORTANT:** This plugin is a wrapper. It does **not** include an LLM engine itself. You **must** have one of the following CLI tools installed, authenticated, and available in your `$PATH` for this plugin to function:
+
+-   **[Copilot CLI](https://github.com/github/gh-copilot)**: `gh copilot` (or standalone `copilot`)
+-   **[Gemini CLI](https://github.com/google/gemini-cli)**: `gemini`
+-   **[Claude Code](https://github.com/anthropics/claude-code)**: `claude`
+-   **[Codex CLI](https://github.com/openai/codex-cli)**: `codex`
 
 ## Installation
 
@@ -53,7 +53,7 @@ Example buffer:
 tar -czf archive.tar.gz /path/to/folder
 ```
 
-Press **`Ctrl+X` then `e`**.
+Press **`Ctrl+X` then `e`** (default).
 The plugin will print an explanation above your prompt.
 
 ### 2. Suggest a Command
@@ -64,18 +64,27 @@ Example buffer:
 find all python files modified yesterday and delete them
 ```
 
-Press **`Ctrl+X` then `s`**.
+Press **`Ctrl+X` then `s`** (default).
 The text will be replaced by the actual shell command (e.g., `find . -name "*.py" -mtime 1 -delete`).
 
 ## Configuration
 
-You can configure the plugin by setting variables in your `.zshrc` **before** or **after** sourcing the plugin (since they are evaluated at runtime).
+You can configure the plugin by setting variables in your `.zshrc`.
 
 ### Select the LLM Tool
-Choose which CLI tool to use. Default is `codex`.
+Choose which CLI tool to use. Default is `gemini`.
 
 ```zsh
 export ZSH_LLM_CLI_TOOL="gemini" # Options: copilot, gemini, claude, codex
+```
+
+### Customizing Keyboard Shortcuts
+The plugin binds `llm_explain` and `llm_suggest` to `Ctrl+X e` and `Ctrl+X s` by default. You can override these in your `.zshrc` **after** the plugin is loaded:
+
+```zsh
+# Use Ctrl+G for suggestions and Ctrl+E for explanations
+bindkey '^G' llm_suggest
+bindkey '^E' llm_explain
 ```
 
 ### Custom Models
