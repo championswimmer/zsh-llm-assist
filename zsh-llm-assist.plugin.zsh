@@ -150,7 +150,7 @@ llm_explain() {
 
     # Print to stdout so it persists
     zle -I
-    print -P "$output"
+    print -P "\n$output\n"
 }
 
 llm_suggest() {
