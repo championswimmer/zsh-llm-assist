@@ -4,7 +4,7 @@
 
 zmodload zsh/zselect
 
-# 1. Select the tool to use: "codex", "claude", "gemini", or "copilot"
+# 1. Select the tool to use: "codex", "claude", "gemini", "opencode" or "copilot"
 : ${ZSH_LLM_CLI_TOOL:="gemini"}
 
 # 2. Path to binary (Optional override)
@@ -20,6 +20,7 @@ zmodload zsh/zselect
 : ${ZSH_LLM_CLAUDE_MODEL:="claude-haiku-4-5"}
 : ${ZSH_LLM_CODEX_MODEL:="gpt-5.1-codex-mini"}
 : ${ZSH_LLM_COPILOT_MODEL:="claude-haiku-4.5"}
+: ${ZSH_LLM_OPENCODE_MODEL:="xai/grok-code-fast-1"}
 
 # ------------------------------------------------------------------------------
 # System Prompts (Bulletproofed)
@@ -98,6 +99,10 @@ _llm_call_provider() {
         claude)
             model="$ZSH_LLM_CLAUDE_MODEL"
             cmd_args+=("--model" "$model" "--print" "$prompt")
+            ;;
+        opencode)
+            model="$ZSH_LLM_OPENCODE_MODEL"
+            cmd_args+=("run" "--model" "$model" "$prompt")
             ;;
         codex)
             model="$ZSH_LLM_CODEX_MODEL"
