@@ -95,7 +95,7 @@ Override the default models for specific tools:
 ```zsh
 export ZSH_LLM_GEMINI_MODEL="gemini-1.5-pro"
 export ZSH_LLM_CLAUDE_MODEL="claude-3-opus-20240229"
-export ZSH_LLM_CODEX_MODEL="gpt-4o"
+export ZSH_LLM_CODEX_MODEL="gpt-5.4-mini"
 ```
 
 ### Debug Mode
