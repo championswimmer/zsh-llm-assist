@@ -18,7 +18,7 @@ zmodload zsh/zselect
 # You can override these in your .zshrc
 : ${ZSH_LLM_GEMINI_MODEL:="gemini-3-flash-preview"}
 : ${ZSH_LLM_CLAUDE_MODEL:="claude-haiku-4-5"}
-: ${ZSH_LLM_CODEX_MODEL:="gpt-5.1-codex-mini"}
+: ${ZSH_LLM_CODEX_MODEL:="gpt-5.4-mini"}
 : ${ZSH_LLM_COPILOT_MODEL:="claude-haiku-4.5"}
 : ${ZSH_LLM_OPENCODE_MODEL:="xai/grok-code-fast-1"}
 
@@ -106,7 +106,11 @@ _llm_call_provider() {
             ;;
         codex)
             model="$ZSH_LLM_CODEX_MODEL"
-            cmd_args+=("--model" "$model" "$prompt")
+            if [[ "$operation" == "explain" ]]; then
+                cmd_args+=("e" "-m" "$model" "--yolo" "$prompt")
+            else
+                cmd_args+=("e" "-m" "$model" "--yolo" "$prompt")
+            fi
             ;;
         *)
             echo "Error: Unknown tool '$ZSH_LLM_CLI_TOOL'"
