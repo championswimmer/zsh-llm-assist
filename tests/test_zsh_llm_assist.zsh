@@ -16,8 +16,12 @@ if [[ -n "$TARGET_MODEL" ]]; then
     case "$ZSH_LLM_CLI_TOOL" in
         gemini) export ZSH_LLM_GEMINI_MODEL="$TARGET_MODEL" ;;
         claude) export ZSH_LLM_CLAUDE_MODEL="$TARGET_MODEL" ;;
-        codex)  export ZSH_LLM_CODEX_MODEL="$TARGET_MODEL" ;;
+        codex) export ZSH_LLM_CODEX_MODEL="$TARGET_MODEL" ;;
+        cursor) export ZSH_LLM_CURSOR_MODEL="$TARGET_MODEL" ;;
+        antigravity) export ZSH_LLM_ANTIGRAVITY_MODEL="$TARGET_MODEL" ;;
+        grok-build) export ZSH_LLM_GROK_BUILD_MODEL="$TARGET_MODEL" ;;
         copilot) export ZSH_LLM_COPILOT_MODEL="$TARGET_MODEL" ;;
+        opencode) export ZSH_LLM_OPENCODE_MODEL="$TARGET_MODEL" ;;
     esac
 fi
 
@@ -49,18 +53,25 @@ zselect() { return 0; }
 
 # Mock the CLI Tool to capture output and verify arguments
 mock_tool_called=0
+mock_tool_args_file=$(mktemp)
 export mock_tool_output=""
 
 function define_mock_tool() {
     local tool_name="$1"
-    # Use single quotes for the inner function body to prevent early expansion of $mock_tool_output
     eval "function $tool_name() {
+        mock_tool_called=1
+        printf '%s\n' \"\$@\" >| \"$mock_tool_args_file\"
         echo \"\$mock_tool_output\"
     }"
 }
 
 if [[ "${REAL_API:-false}" != "true" ]]; then
-    define_mock_tool "$ZSH_LLM_CLI_TOOL"
+    case "$ZSH_LLM_CLI_TOOL" in
+        cursor) define_mock_tool "cursor-agent" ;;
+        antigravity) define_mock_tool "agy" ;;
+        grok-build) define_mock_tool "agent" ;;
+        *) define_mock_tool "$ZSH_LLM_CLI_TOOL" ;;
+    esac
 fi
 
 # 3. Load Plugin
@@ -103,6 +114,50 @@ assert_equals() {
     fi
 }
 
+assert_contains() {
+    local haystack="$1"
+    local needle="$2"
+    local msg="$3"
+    if [[ "$haystack" != *"$needle"* ]]; then
+        echo "❌ $msg"
+        echo "   Expected to find: $needle"
+        echo "   In:               $haystack"
+        exit 1
+    fi
+}
+
+assert_provider_flags() {
+    local args_joined="$(tr '\n' ' ' < "$mock_tool_args_file")"
+
+    case "$ZSH_LLM_CLI_TOOL" in
+        claude)
+            assert_contains "$args_joined" "--model ${TARGET_MODEL:-haiku}" "Claude command should set the configured model"
+            assert_contains "$args_joined" "--print" "Claude command should use print mode"
+            assert_contains "$args_joined" "--dangerously-skip-permissions" "Claude command should bypass permission prompts"
+            ;;
+        codex)
+            assert_contains "$args_joined" "exec -m ${TARGET_MODEL:-gpt-5.4-mini}" "Codex command should use exec with the configured model"
+            assert_contains "$args_joined" "--dangerously-bypass-approvals-and-sandbox" "Codex command should bypass approvals and sandbox"
+            assert_contains "$args_joined" "--dangerously-bypass-hook-trust" "Codex command should bypass hook trust"
+            ;;
+        cursor)
+            assert_contains "$args_joined" "--print --output-format text --force" "Cursor command should use non-interactive forced print mode"
+            if [[ -n "$TARGET_MODEL" ]]; then
+                assert_contains "$args_joined" "--model $TARGET_MODEL" "Cursor command should set an explicit model when configured"
+            fi
+            ;;
+        antigravity)
+            assert_contains "$args_joined" "--model ${TARGET_MODEL:-gemini-3.8-flash-low}" "Antigravity command should set the configured model"
+            assert_contains "$args_joined" "--print --output-format text --dangerously-skip-permissions" "Antigravity command should run headless without permission prompts"
+            ;;
+        grok-build)
+            assert_contains "$args_joined" "-p" "Grok Build command should use single-turn mode"
+            assert_contains "$args_joined" "--output-format plain --permission-mode bypassPermissions" "Grok Build command should run headless without permission prompts"
+            assert_contains "$args_joined" "--model ${TARGET_MODEL:-grok-4.7-build-fast}" "Grok Build command should set the configured model"
+            ;;
+    esac
+}
+
 # 5. Run Tests
 
 echo "\n>>> Running Suggest Test..."
@@ -111,6 +166,7 @@ if [[ "${REAL_API:-false}" != "true" ]]; then
     export mock_tool_output="ls"
     llm_suggest
     assert_equals "$BUFFER" "ls" "llm_suggest failed to update BUFFER with mock"
+    assert_provider_flags
 else
     llm_suggest
     assert_not_empty "$BUFFER" "llm_suggest returned empty BUFFER with real API"

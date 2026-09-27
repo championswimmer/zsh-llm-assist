@@ -4,12 +4,13 @@
 
 zmodload zsh/zselect
 
-# 1. Select the tool to use: "codex", "claude", "gemini", "opencode" or "copilot"
+# 1. Select the tool to use: "codex", "claude", "cursor", "antigravity", "grok-build", "gemini", "opencode" or "copilot"
 : ${ZSH_LLM_CLI_TOOL:="gemini"}
 
 # 2. Path to binary (Optional override)
-# If unset, the plugin will use the value of ZSH_LLM_CLI_TOOL dynamically.
-# : ${ZSH_LLM_BIN_PATH:="$ZSH_LLM_CLI_TOOL"}
+# If unset, the plugin will derive the binary from ZSH_LLM_CLI_TOOL.
+# Built-in mappings: cursor -> cursor-agent, antigravity -> agy, grok-build -> agent.
+# : ${ZSH_LLM_BIN_PATH:="/full/path/to/your-cli"}
 
 # 3. Debug Mode (default: false)
 : ${ZSH_LLM_CLI_DEBUG:=false}
@@ -17,8 +18,11 @@ zmodload zsh/zselect
 # 4. Default Models (User Configurable)
 # You can override these in your .zshrc
 : ${ZSH_LLM_GEMINI_MODEL:="gemini-3-flash-preview"}
-: ${ZSH_LLM_CLAUDE_MODEL:="claude-haiku-4-5"}
+: ${ZSH_LLM_CLAUDE_MODEL:="haiku"}
 : ${ZSH_LLM_CODEX_MODEL:="gpt-5.4-mini"}
+: ${ZSH_LLM_CURSOR_MODEL:=""}
+: ${ZSH_LLM_ANTIGRAVITY_MODEL:="gemini-3.8-flash-low"}
+: ${ZSH_LLM_GROK_BUILD_MODEL:="grok-4.7-build-fast"}
 : ${ZSH_LLM_COPILOT_MODEL:="claude-haiku-4.5"}
 : ${ZSH_LLM_OPENCODE_MODEL:="xai/grok-code-fast-1"}
 
@@ -26,9 +30,9 @@ zmodload zsh/zselect
 # System Prompts (Bulletproofed)
 # ------------------------------------------------------------------------------
 
-_llm_prompt_explain="You are a Zsh expert helper. Your goal is to explain what a specific shell command does. Rules: 1. Keep the explanation between 2 to 4 sentences. 2. Be clear and plain-spoken. 3. Do not repeat the command, just explain its effect. 4. Do not use Markdown formatting. Command to explain:"
+_llm_prompt_explain="You are a Zsh expert helper. Explain what a specific shell command does using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Keep the explanation between 2 to 4 sentences. 2. Be clear and plain-spoken. 3. Do not repeat the command, just explain its effect. 4. Do not use Markdown formatting. Command to explain:"
 
-_llm_prompt_suggest="You are a Zsh command generator. Return ONLY the raw command string required to fulfill the user request. Rules: 0. No tool usage or extra thinking. 1. Output MUST be a valid executable Zsh command. 2. NO markdown formatting (no backticks). 3. NO explanatory text. 4. NO leading/trailing whitespace. 5. If multiple steps are needed, chain them with && or ;. Request:"
+_llm_prompt_suggest="You are a Zsh command generator. Return ONLY the raw command string required to fulfill the user request using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Output MUST be a valid executable Zsh command. 2. NO markdown formatting (no backticks). 3. NO explanatory text. 4. NO leading/trailing whitespace. 5. If multiple steps are needed, chain them with && or ;. Request:"
 
 # ------------------------------------------------------------------------------
 # Helpers: Loader & Sanitizer
@@ -57,6 +61,15 @@ _llm_sanitize_suggestion() {
     echo "$input" | sed -E 's/^```[a-z]*//; s/```$//; s/`//g; s/^[[:space:]]*//; s/[[:space:]]*$//'
 }
 
+_llm_resolve_tool_binary() {
+    case "$1" in
+        cursor) echo "cursor-agent" ;;
+        antigravity) echo "agy" ;;
+        grok-build) echo "agent" ;;
+        *) echo "$1" ;;
+    esac
+}
+
 # ------------------------------------------------------------------------------
 # Core Logic
 # ------------------------------------------------------------------------------
@@ -74,7 +87,7 @@ _llm_call_provider() {
     fi
 
         # 2. Resolve Tool Command
-        local tool_cmd="${ZSH_LLM_BIN_PATH:-$ZSH_LLM_CLI_TOOL}"
+        local tool_cmd="${ZSH_LLM_BIN_PATH:-$(_llm_resolve_tool_binary "$ZSH_LLM_CLI_TOOL")}"
 
         # 3. Check Tool Availability
         if ! command -v "$tool_cmd" &> /dev/null; then
@@ -98,19 +111,29 @@ _llm_call_provider() {
             ;;
         claude)
             model="$ZSH_LLM_CLAUDE_MODEL"
-            cmd_args+=("--model" "$model" "--print" "$prompt")
+            cmd_args+=("--model" "$model" "--print" "--output-format" "text" "--dangerously-skip-permissions" "$prompt")
+            ;;
+        codex)
+            model="$ZSH_LLM_CODEX_MODEL"
+            cmd_args+=("exec" "-m" "$model" "--dangerously-bypass-approvals-and-sandbox" "--dangerously-bypass-hook-trust" "$prompt")
+            ;;
+        cursor)
+            model="$ZSH_LLM_CURSOR_MODEL"
+            cmd_args+=("--print" "--output-format" "text" "--force")
+            [[ -n "$model" ]] && cmd_args+=("--model" "$model")
+            cmd_args+=("$prompt")
+            ;;
+        antigravity)
+            model="$ZSH_LLM_ANTIGRAVITY_MODEL"
+            cmd_args+=("--model" "$model" "--print" "--output-format" "text" "--dangerously-skip-permissions" "$prompt")
+            ;;
+        grok-build)
+            model="$ZSH_LLM_GROK_BUILD_MODEL"
+            cmd_args+=("-p" "$prompt" "--output-format" "plain" "--permission-mode" "bypassPermissions" "--model" "$model")
             ;;
         opencode)
             model="$ZSH_LLM_OPENCODE_MODEL"
             cmd_args+=("run" "--model" "$model" "$prompt")
-            ;;
-        codex)
-            model="$ZSH_LLM_CODEX_MODEL"
-            if [[ "$operation" == "explain" ]]; then
-                cmd_args+=("e" "-m" "$model" "--yolo" "$prompt")
-            else
-                cmd_args+=("e" "-m" "$model" "--yolo" "$prompt")
-            fi
             ;;
         *)
             echo "Error: Unknown tool '$ZSH_LLM_CLI_TOOL'"
