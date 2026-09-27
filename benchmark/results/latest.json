@@ -1,0 +1,961 @@
+{
+  "generated_at": "2026-09-27T16:26:28+00:00",
+  "cases": [
+    {
+      "id": "s1",
+      "kind": "suggest",
+      "title": "largest-files",
+      "input": "show the 20 largest files under the current directory"
+    },
+    {
+      "id": "s2",
+      "kind": "suggest",
+      "title": "large-log-files",
+      "input": "find every .log file larger than 100MB under /var/log"
+    },
+    {
+      "id": "s3",
+      "kind": "suggest",
+      "title": "count-todos",
+      "input": "count how many TODO comments exist in all JavaScript and TypeScript files in this tree"
+    },
+    {
+      "id": "s4",
+      "kind": "suggest",
+      "title": "tarball-excluding-deps",
+      "input": "create a gzipped tarball of the current directory excluding .git and node_modules"
+    },
+    {
+      "id": "s5",
+      "kind": "suggest",
+      "title": "disk-usage-top-level",
+      "input": "show disk usage for each top-level directory sorted from largest to smallest"
+    },
+    {
+      "id": "e1",
+      "kind": "explain",
+      "title": "find-xargs-sha256sum",
+      "input": "find . -type f -print0 | xargs -0 sha256sum | sort -k2"
+    },
+    {
+      "id": "e2",
+      "kind": "explain",
+      "title": "rsync-delete-progress",
+      "input": "rsync -avz --delete --partial --info=progress2 src/ remote:/backup/"
+    },
+    {
+      "id": "e3",
+      "kind": "explain",
+      "title": "lsof-listening-tcp",
+      "input": "lsof -iTCP -sTCP:LISTEN -n -P"
+    },
+    {
+      "id": "e4",
+      "kind": "explain",
+      "title": "awk-passwd-filter",
+      "input": "awk -F: '$3 >= 1000 && $7 !~ /nologin/ { print $1 }' /etc/passwd"
+    },
+    {
+      "id": "e5",
+      "kind": "explain",
+      "title": "ssh-local-port-forward",
+      "input": "ssh -N -L 15432:db.internal:5432 bastion.example.com"
+    }
+  ],
+  "providers": [
+    {
+      "provider": "claude",
+      "label": "Claude CLI",
+      "binary": "claude",
+      "version": "2.1.280 (Claude Code)",
+      "model": "haiku",
+      "success_count": 10,
+      "total_count": 10,
+      "suggest_total_s": 32.875,
+      "explain_total_s": 34.161,
+      "total_s": 67.036,
+      "avg_s": 6.704,
+      "note": "ok",
+      "cases": [
+        {
+          "case_id": "s1",
+          "kind": "suggest",
+          "title": "largest-files",
+          "input": "show the 20 largest files under the current directory",
+          "elapsed_s": 8.349,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "find . -type f -printf '%s %p\\n' | sort -rn | head -20",
+          "stderr": "",
+          "command": [
+            "claude",
+            "--model",
+            "haiku",
+            "--print",
+            "--output-format",
+            "text",
+            "--dangerously-skip-permissions",
+            "You are a Zsh command generator. Return ONLY the raw command string required to fulfill the user request using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Output MUST be a valid executable Zsh command. 2. NO markdown formatting (no backticks). 3. NO explanatory text. 4. NO leading/trailing whitespace. 5. If multiple steps are needed, chain them with && or ;. Request: show the 20 largest files under the current directory"
+          ]
+        },
+        {
+          "case_id": "s2",
+          "kind": "suggest",
+          "title": "large-log-files",
+          "input": "find every .log file larger than 100MB under /var/log",
+          "elapsed_s": 4.709,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "find /var/log -name \"*.log\" -size +100M",
+          "stderr": "",
+          "command": [
+            "claude",
+            "--model",
+            "haiku",
+            "--print",
+            "--output-format",
+            "text",
+            "--dangerously-skip-permissions",
+            "You are a Zsh command generator. Return ONLY the raw command string required to fulfill the user request using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Output MUST be a valid executable Zsh command. 2. NO markdown formatting (no backticks). 3. NO explanatory text. 4. NO leading/trailing whitespace. 5. If multiple steps are needed, chain them with && or ;. Request: find every .log file larger than 100MB under /var/log"
+          ]
+        },
+        {
+          "case_id": "s3",
+          "kind": "suggest",
+          "title": "count-todos",
+          "input": "count how many TODO comments exist in all JavaScript and TypeScript files in this tree",
+          "elapsed_s": 8.168,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "grep -r \"TODO\" --include=\"*.js\" --include=\"*.ts\" --include=\"*.jsx\" --include=\"*.tsx\" . | wc -l",
+          "stderr": "",
+          "command": [
+            "claude",
+            "--model",
+            "haiku",
+            "--print",
+            "--output-format",
+            "text",
+            "--dangerously-skip-permissions",
+            "You are a Zsh command generator. Return ONLY the raw command string required to fulfill the user request using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Output MUST be a valid executable Zsh command. 2. NO markdown formatting (no backticks). 3. NO explanatory text. 4. NO leading/trailing whitespace. 5. If multiple steps are needed, chain them with && or ;. Request: count how many TODO comments exist in all JavaScript and TypeScript files in this tree"
+          ]
+        },
+        {
+          "case_id": "s4",
+          "kind": "suggest",
+          "title": "tarball-excluding-deps",
+          "input": "create a gzipped tarball of the current directory excluding .git and node_modules",
+          "elapsed_s": 5.906,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "tar -czf archive.tar.gz --exclude=.git --exclude=node_modules .",
+          "stderr": "",
+          "command": [
+            "claude",
+            "--model",
+            "haiku",
+            "--print",
+            "--output-format",
+            "text",
+            "--dangerously-skip-permissions",
+            "You are a Zsh command generator. Return ONLY the raw command string required to fulfill the user request using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Output MUST be a valid executable Zsh command. 2. NO markdown formatting (no backticks). 3. NO explanatory text. 4. NO leading/trailing whitespace. 5. If multiple steps are needed, chain them with && or ;. Request: create a gzipped tarball of the current directory excluding .git and node_modules"
+          ]
+        },
+        {
+          "case_id": "s5",
+          "kind": "suggest",
+          "title": "disk-usage-top-level",
+          "input": "show disk usage for each top-level directory sorted from largest to smallest",
+          "elapsed_s": 5.743,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "du -sh /* | sort -hr",
+          "stderr": "",
+          "command": [
+            "claude",
+            "--model",
+            "haiku",
+            "--print",
+            "--output-format",
+            "text",
+            "--dangerously-skip-permissions",
+            "You are a Zsh command generator. Return ONLY the raw command string required to fulfill the user request using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Output MUST be a valid executable Zsh command. 2. NO markdown formatting (no backticks). 3. NO explanatory text. 4. NO leading/trailing whitespace. 5. If multiple steps are needed, chain them with && or ;. Request: show disk usage for each top-level directory sorted from largest to smallest"
+          ]
+        },
+        {
+          "case_id": "e1",
+          "kind": "explain",
+          "title": "find-xargs-sha256sum",
+          "input": "find . -type f -print0 | xargs -0 sha256sum | sort -k2",
+          "elapsed_s": 6.046,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "This command finds all files in the current directory and its subdirectories, calculates a SHA256 hash for each one, and sorts the results alphabetically by filename. The find command uses null terminators and xargs uses the -0 flag to safely handle filenames with spaces or special characters. The sort command at the end organizes the output so you can easily see the hashes grouped by filename.",
+          "stderr": "",
+          "command": [
+            "claude",
+            "--model",
+            "haiku",
+            "--print",
+            "--output-format",
+            "text",
+            "--dangerously-skip-permissions",
+            "You are a Zsh expert helper. Explain what a specific shell command does using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Keep the explanation between 2 to 4 sentences. 2. Be clear and plain-spoken. 3. Do not repeat the command, just explain its effect. 4. Do not use Markdown formatting. Command to explain: find . -type f -print0 | xargs -0 sha256sum | sort -k2"
+          ]
+        },
+        {
+          "case_id": "e2",
+          "kind": "explain",
+          "title": "rsync-delete-progress",
+          "input": "rsync -avz --delete --partial --info=progress2 src/ remote:/backup/",
+          "elapsed_s": 6.721,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "This command syncs files from your local src directory to a remote server's /backup directory, preserving file permissions and timestamps while compressing everything during transfer. The --delete flag removes any files on the remote that don't exist locally, keeping the two directories in sync, and --partial allows rsync to resume interrupted transfers. The verbose and progress flags show you what's being copied and how far along it is.",
+          "stderr": "",
+          "command": [
+            "claude",
+            "--model",
+            "haiku",
+            "--print",
+            "--output-format",
+            "text",
+            "--dangerously-skip-permissions",
+            "You are a Zsh expert helper. Explain what a specific shell command does using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Keep the explanation between 2 to 4 sentences. 2. Be clear and plain-spoken. 3. Do not repeat the command, just explain its effect. 4. Do not use Markdown formatting. Command to explain: rsync -avz --delete --partial --info=progress2 src/ remote:/backup/"
+          ]
+        },
+        {
+          "case_id": "e3",
+          "kind": "explain",
+          "title": "lsof-listening-tcp",
+          "input": "lsof -iTCP -sTCP:LISTEN -n -P",
+          "elapsed_s": 6.613,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "This command lists all TCP network connections that are actively listening for incoming connections. The -n flag shows IP addresses as numbers instead of hostnames, and -P shows port numbers instead of service names. It's useful for seeing which applications are listening on which ports on your system.",
+          "stderr": "",
+          "command": [
+            "claude",
+            "--model",
+            "haiku",
+            "--print",
+            "--output-format",
+            "text",
+            "--dangerously-skip-permissions",
+            "You are a Zsh expert helper. Explain what a specific shell command does using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Keep the explanation between 2 to 4 sentences. 2. Be clear and plain-spoken. 3. Do not repeat the command, just explain its effect. 4. Do not use Markdown formatting. Command to explain: lsof -iTCP -sTCP:LISTEN -n -P"
+          ]
+        },
+        {
+          "case_id": "e4",
+          "kind": "explain",
+          "title": "awk-passwd-filter",
+          "input": "awk -F: '$3 >= 1000 && $7 !~ /nologin/ { print $1 }' /etc/passwd",
+          "elapsed_s": 7.636,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "This reads the passwd file, which uses colons as field separators, and filters for users with UIDs of 1000 or higher whose login shell is not nologin. It then prints only the usernames of those matching users. Essentially, it finds regular user accounts (not system accounts) that are actually allowed to log in.",
+          "stderr": "",
+          "command": [
+            "claude",
+            "--model",
+            "haiku",
+            "--print",
+            "--output-format",
+            "text",
+            "--dangerously-skip-permissions",
+            "You are a Zsh expert helper. Explain what a specific shell command does using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Keep the explanation between 2 to 4 sentences. 2. Be clear and plain-spoken. 3. Do not repeat the command, just explain its effect. 4. Do not use Markdown formatting. Command to explain: awk -F: '$3 >= 1000 && $7 !~ /nologin/ { print $1 }' /etc/passwd"
+          ]
+        },
+        {
+          "case_id": "e5",
+          "kind": "explain",
+          "title": "ssh-local-port-forward",
+          "input": "ssh -N -L 15432:db.internal:5432 bastion.example.com",
+          "elapsed_s": 7.145,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "This command creates a secure tunnel through bastion.example.com that forwards traffic from your local port 15432 to a database server running on port 5432 at db.internal. The -N flag tells SSH not to open an interactive shell, so the connection exists only for port forwarding. Once connected, you can reach the remote database by connecting to localhost:15432 on your machine, and the traffic gets securely tunneled through the bastion host to the actual database server.",
+          "stderr": "",
+          "command": [
+            "claude",
+            "--model",
+            "haiku",
+            "--print",
+            "--output-format",
+            "text",
+            "--dangerously-skip-permissions",
+            "You are a Zsh expert helper. Explain what a specific shell command does using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Keep the explanation between 2 to 4 sentences. 2. Be clear and plain-spoken. 3. Do not repeat the command, just explain its effect. 4. Do not use Markdown formatting. Command to explain: ssh -N -L 15432:db.internal:5432 bastion.example.com"
+          ]
+        }
+      ]
+    },
+    {
+      "provider": "codex",
+      "label": "Codex CLI",
+      "binary": "codex",
+      "version": "codex-cli 0.157.1",
+      "model": "gpt-5.6-luna",
+      "success_count": 10,
+      "total_count": 10,
+      "suggest_total_s": 35.53,
+      "explain_total_s": 35.483,
+      "total_s": 71.013,
+      "avg_s": 7.101,
+      "note": "ok",
+      "cases": [
+        {
+          "case_id": "s1",
+          "kind": "suggest",
+          "title": "largest-files",
+          "input": "show the 20 largest files under the current directory",
+          "elapsed_s": 8.092,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "find . -type f -print0 | xargs -0 stat -f '%z %N' | sort -nr | head -20",
+          "stderr": "Reading additional input from stdin...\nOpenAI Codex v0.157.1\n--------\nworkdir: /Users/championswimmer/Development/Personal/LLM/zsh-llm-assist\nmodel: gpt-5.6-luna\nprovider: openai\napproval: never\nsandbox: danger-full-access\nreasoning effort: high\nreasoning summaries: none\nsession id: 01a0e3b1-7dd6-7df0-9f8c-740f190ef8f4\n--------\nuser\nYou are a Zsh command generator. Return ONLY the raw command string required to fulfill the user request using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Output MUST be a valid executable Zsh command. 2. NO markdown formatting (no backticks). 3. NO explanatory text. 4. NO leading/trailing whitespace. 5. If multiple steps are needed, chain them with && or ;. Request: show the 20 largest files under the current directory\nwarning: `--dangerously-bypass-hook-trust` is enabled. Enabled hooks may run without review for this invocation.\nwarning: `--dangerously-bypass-hook-trust` is enabled. Enabled hooks may run without review for this invocation.\nhook: SessionStart\nhook: SessionStart Completed\nhook: UserPromptSubmit\nhook: UserPromptSubmit Completed\ncodex\nfind . -type f -print0 | xargs -0 stat -f '%z %N' | sort -nr | head -20\nhook: Stop\nhook: Stop Completed\ntokens used\n4,571",
+          "command": [
+            "codex",
+            "exec",
+            "-m",
+            "gpt-5.6-luna",
+            "--dangerously-bypass-approvals-and-sandbox",
+            "--dangerously-bypass-hook-trust",
+            "You are a Zsh command generator. Return ONLY the raw command string required to fulfill the user request using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Output MUST be a valid executable Zsh command. 2. NO markdown formatting (no backticks). 3. NO explanatory text. 4. NO leading/trailing whitespace. 5. If multiple steps are needed, chain them with && or ;. Request: show the 20 largest files under the current directory"
+          ]
+        },
+        {
+          "case_id": "s2",
+          "kind": "suggest",
+          "title": "large-log-files",
+          "input": "find every .log file larger than 100MB under /var/log",
+          "elapsed_s": 6.406,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "find /var/log -type f -name '*.log' -size +100M",
+          "stderr": "Reading additional input from stdin...\nOpenAI Codex v0.157.1\n--------\nworkdir: /Users/championswimmer/Development/Personal/LLM/zsh-llm-assist\nmodel: gpt-5.6-luna\nprovider: openai\napproval: never\nsandbox: danger-full-access\nreasoning effort: high\nreasoning summaries: none\nsession id: 01a0e3b1-9d78-7960-beea-10191c5a289d\n--------\nuser\nYou are a Zsh command generator. Return ONLY the raw command string required to fulfill the user request using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Output MUST be a valid executable Zsh command. 2. NO markdown formatting (no backticks). 3. NO explanatory text. 4. NO leading/trailing whitespace. 5. If multiple steps are needed, chain them with && or ;. Request: find every .log file larger than 100MB under /var/log\nwarning: `--dangerously-bypass-hook-trust` is enabled. Enabled hooks may run without review for this invocation.\nwarning: `--dangerously-bypass-hook-trust` is enabled. Enabled hooks may run without review for this invocation.\nhook: SessionStart\nhook: SessionStart Completed\nhook: UserPromptSubmit\nhook: UserPromptSubmit Completed\ncodex\nfind /var/log -type f -name '*.log' -size +100M\n\nhook: Stop\nhook: Stop Completed\ntokens used\n4,484",
+          "command": [
+            "codex",
+            "exec",
+            "-m",
+            "gpt-5.6-luna",
+            "--dangerously-bypass-approvals-and-sandbox",
+            "--dangerously-bypass-hook-trust",
+            "You are a Zsh command generator. Return ONLY the raw command string required to fulfill the user request using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Output MUST be a valid executable Zsh command. 2. NO markdown formatting (no backticks). 3. NO explanatory text. 4. NO leading/trailing whitespace. 5. If multiple steps are needed, chain them with && or ;. Request: find every .log file larger than 100MB under /var/log"
+          ]
+        },
+        {
+          "case_id": "s3",
+          "kind": "suggest",
+          "title": "count-todos",
+          "input": "count how many TODO comments exist in all JavaScript and TypeScript files in this tree",
+          "elapsed_s": 8.16,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "rg -n 'TODO' --glob '*.{js,jsx,ts,tsx}' . | wc -l",
+          "stderr": "Reading additional input from stdin...\nOpenAI Codex v0.157.1\n--------\nworkdir: /Users/championswimmer/Development/Personal/LLM/zsh-llm-assist\nmodel: gpt-5.6-luna\nprovider: openai\napproval: never\nsandbox: danger-full-access\nreasoning effort: high\nreasoning summaries: none\nsession id: 01a0e3b1-b67b-7582-b5a2-817123b29972\n--------\nuser\nYou are a Zsh command generator. Return ONLY the raw command string required to fulfill the user request using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Output MUST be a valid executable Zsh command. 2. NO markdown formatting (no backticks). 3. NO explanatory text. 4. NO leading/trailing whitespace. 5. If multiple steps are needed, chain them with && or ;. Request: count how many TODO comments exist in all JavaScript and TypeScript files in this tree\nwarning: `--dangerously-bypass-hook-trust` is enabled. Enabled hooks may run without review for this invocation.\nwarning: `--dangerously-bypass-hook-trust` is enabled. Enabled hooks may run without review for this invocation.\nhook: SessionStart\nhook: SessionStart Completed\nhook: UserPromptSubmit\nhook: UserPromptSubmit Completed\ncodex\nrg -n 'TODO' --glob '*.{js,jsx,ts,tsx}' . | wc -l\nhook: Stop\nhook: Stop Completed\ntokens used\n4,487",
+          "command": [
+            "codex",
+            "exec",
+            "-m",
+            "gpt-5.6-luna",
+            "--dangerously-bypass-approvals-and-sandbox",
+            "--dangerously-bypass-hook-trust",
+            "You are a Zsh command generator. Return ONLY the raw command string required to fulfill the user request using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Output MUST be a valid executable Zsh command. 2. NO markdown formatting (no backticks). 3. NO explanatory text. 4. NO leading/trailing whitespace. 5. If multiple steps are needed, chain them with && or ;. Request: count how many TODO comments exist in all JavaScript and TypeScript files in this tree"
+          ]
+        },
+        {
+          "case_id": "s4",
+          "kind": "suggest",
+          "title": "tarball-excluding-deps",
+          "input": "create a gzipped tarball of the current directory excluding .git and node_modules",
+          "elapsed_s": 6.513,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "tar --exclude=.git --exclude=node_modules -czf ../$(basename \"$PWD\").tar.gz .",
+          "stderr": "Reading additional input from stdin...\nOpenAI Codex v0.157.1\n--------\nworkdir: /Users/championswimmer/Development/Personal/LLM/zsh-llm-assist\nmodel: gpt-5.6-luna\nprovider: openai\napproval: never\nsandbox: danger-full-access\nreasoning effort: high\nreasoning summaries: none\nsession id: 01a0e3b1-d661-73b2-a77a-ebe067019b86\n--------\nuser\nYou are a Zsh command generator. Return ONLY the raw command string required to fulfill the user request using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Output MUST be a valid executable Zsh command. 2. NO markdown formatting (no backticks). 3. NO explanatory text. 4. NO leading/trailing whitespace. 5. If multiple steps are needed, chain them with && or ;. Request: create a gzipped tarball of the current directory excluding .git and node_modules\nwarning: `--dangerously-bypass-hook-trust` is enabled. Enabled hooks may run without review for this invocation.\nwarning: `--dangerously-bypass-hook-trust` is enabled. Enabled hooks may run without review for this invocation.\nhook: SessionStart\nhook: SessionStart Completed\nhook: UserPromptSubmit\nhook: UserPromptSubmit Completed\ncodex\ntar --exclude=.git --exclude=node_modules -czf ../$(basename \"$PWD\").tar.gz .\nhook: Stop\nhook: Stop Completed\ntokens used\n4,489",
+          "command": [
+            "codex",
+            "exec",
+            "-m",
+            "gpt-5.6-luna",
+            "--dangerously-bypass-approvals-and-sandbox",
+            "--dangerously-bypass-hook-trust",
+            "You are a Zsh command generator. Return ONLY the raw command string required to fulfill the user request using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Output MUST be a valid executable Zsh command. 2. NO markdown formatting (no backticks). 3. NO explanatory text. 4. NO leading/trailing whitespace. 5. If multiple steps are needed, chain them with && or ;. Request: create a gzipped tarball of the current directory excluding .git and node_modules"
+          ]
+        },
+        {
+          "case_id": "s5",
+          "kind": "suggest",
+          "title": "disk-usage-top-level",
+          "input": "show disk usage for each top-level directory sorted from largest to smallest",
+          "elapsed_s": 6.359,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "du -sh -- */ | sort -hr",
+          "stderr": "Reading additional input from stdin...\nOpenAI Codex v0.157.1\n--------\nworkdir: /Users/championswimmer/Development/Personal/LLM/zsh-llm-assist\nmodel: gpt-5.6-luna\nprovider: openai\napproval: never\nsandbox: danger-full-access\nreasoning effort: high\nreasoning summaries: none\nsession id: 01a0e3b1-efcb-75f2-8ca2-5a4cff103fcd\n--------\nuser\nYou are a Zsh command generator. Return ONLY the raw command string required to fulfill the user request using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Output MUST be a valid executable Zsh command. 2. NO markdown formatting (no backticks). 3. NO explanatory text. 4. NO leading/trailing whitespace. 5. If multiple steps are needed, chain them with && or ;. Request: show disk usage for each top-level directory sorted from largest to smallest\nwarning: `--dangerously-bypass-hook-trust` is enabled. Enabled hooks may run without review for this invocation.\nwarning: `--dangerously-bypass-hook-trust` is enabled. Enabled hooks may run without review for this invocation.\nhook: SessionStart\nhook: SessionStart Completed\nhook: UserPromptSubmit\nhook: UserPromptSubmit Completed\ncodex\ndu -sh -- */ | sort -hr\nhook: Stop\nhook: Stop Completed\ntokens used\n4,474",
+          "command": [
+            "codex",
+            "exec",
+            "-m",
+            "gpt-5.6-luna",
+            "--dangerously-bypass-approvals-and-sandbox",
+            "--dangerously-bypass-hook-trust",
+            "You are a Zsh command generator. Return ONLY the raw command string required to fulfill the user request using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Output MUST be a valid executable Zsh command. 2. NO markdown formatting (no backticks). 3. NO explanatory text. 4. NO leading/trailing whitespace. 5. If multiple steps are needed, chain them with && or ;. Request: show disk usage for each top-level directory sorted from largest to smallest"
+          ]
+        },
+        {
+          "case_id": "e1",
+          "kind": "explain",
+          "title": "find-xargs-sha256sum",
+          "input": "find . -type f -print0 | xargs -0 sha256sum | sort -k2",
+          "elapsed_s": 6.865,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "It recursively finds regular files from the current directory and outputs their paths separated by null characters. Those paths are passed safely to a checksum tool, which calculates a SHA-256 hash for each file. The results are sorted alphabetically by the filename field.",
+          "stderr": "Reading additional input from stdin...\nOpenAI Codex v0.157.1\n--------\nworkdir: /Users/championswimmer/Development/Personal/LLM/zsh-llm-assist\nmodel: gpt-5.6-luna\nprovider: openai\napproval: never\nsandbox: danger-full-access\nreasoning effort: high\nreasoning summaries: none\nsession id: 01a0e3b2-08a7-7df2-b006-1f03d9ae85de\n--------\nuser\nYou are a Zsh expert helper. Explain what a specific shell command does using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Keep the explanation between 2 to 4 sentences. 2. Be clear and plain-spoken. 3. Do not repeat the command, just explain its effect. 4. Do not use Markdown formatting. Command to explain: find . -type f -print0 | xargs -0 sha256sum | sort -k2\nwarning: `--dangerously-bypass-hook-trust` is enabled. Enabled hooks may run without review for this invocation.\nwarning: `--dangerously-bypass-hook-trust` is enabled. Enabled hooks may run without review for this invocation.\nhook: SessionStart\nhook: SessionStart Completed\nhook: UserPromptSubmit\nhook: UserPromptSubmit Completed\ncodex\nIt recursively finds regular files from the current directory and outputs their paths separated by null characters. Those paths are passed safely to a checksum tool, which calculates a SHA-256 hash for each file. The results are sorted alphabetically by the filename field.\nhook: Stop\nhook: Stop Completed\ntokens used\n4,465",
+          "command": [
+            "codex",
+            "exec",
+            "-m",
+            "gpt-5.6-luna",
+            "--dangerously-bypass-approvals-and-sandbox",
+            "--dangerously-bypass-hook-trust",
+            "You are a Zsh expert helper. Explain what a specific shell command does using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Keep the explanation between 2 to 4 sentences. 2. Be clear and plain-spoken. 3. Do not repeat the command, just explain its effect. 4. Do not use Markdown formatting. Command to explain: find . -type f -print0 | xargs -0 sha256sum | sort -k2"
+          ]
+        },
+        {
+          "case_id": "e2",
+          "kind": "explain",
+          "title": "rsync-delete-progress",
+          "input": "rsync -avz --delete --partial --info=progress2 src/ remote:/backup/",
+          "elapsed_s": 8.165,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "It synchronizes the contents of the local source directory to the remote backup directory, preserving files and directory metadata while showing verbose output. Compression reduces transfer size, and files at the destination that no longer exist in the source are deleted. Incomplete transfers are kept for resuming, with overall progress displayed.",
+          "stderr": "Reading additional input from stdin...\nOpenAI Codex v0.157.1\n--------\nworkdir: /Users/championswimmer/Development/Personal/LLM/zsh-llm-assist\nmodel: gpt-5.6-luna\nprovider: openai\napproval: never\nsandbox: danger-full-access\nreasoning effort: high\nreasoning summaries: none\nsession id: 01a0e3b2-2377-7523-83b3-9ef18dffac3b\n--------\nuser\nYou are a Zsh expert helper. Explain what a specific shell command does using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Keep the explanation between 2 to 4 sentences. 2. Be clear and plain-spoken. 3. Do not repeat the command, just explain its effect. 4. Do not use Markdown formatting. Command to explain: rsync -avz --delete --partial --info=progress2 src/ remote:/backup/\nwarning: `--dangerously-bypass-hook-trust` is enabled. Enabled hooks may run without review for this invocation.\nwarning: `--dangerously-bypass-hook-trust` is enabled. Enabled hooks may run without review for this invocation.\nhook: SessionStart\nhook: SessionStart Completed\nhook: UserPromptSubmit\nhook: UserPromptSubmit Completed\ncodex\nIt synchronizes the contents of the local source directory to the remote backup directory, preserving files and directory metadata while showing verbose output. Compression reduces transfer size, and files at the destination that no longer exist in the source are deleted. Incomplete transfers are kept for resuming, with overall progress displayed.\nhook: Stop\nhook: Stop Completed\ntokens used\n4,472",
+          "command": [
+            "codex",
+            "exec",
+            "-m",
+            "gpt-5.6-luna",
+            "--dangerously-bypass-approvals-and-sandbox",
+            "--dangerously-bypass-hook-trust",
+            "You are a Zsh expert helper. Explain what a specific shell command does using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Keep the explanation between 2 to 4 sentences. 2. Be clear and plain-spoken. 3. Do not repeat the command, just explain its effect. 4. Do not use Markdown formatting. Command to explain: rsync -avz --delete --partial --info=progress2 src/ remote:/backup/"
+          ]
+        },
+        {
+          "case_id": "e3",
+          "kind": "explain",
+          "title": "lsof-listening-tcp",
+          "input": "lsof -iTCP -sTCP:LISTEN -n -P",
+          "elapsed_s": 5.386,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "Lists processes that have TCP sockets open and listening for incoming connections. It shows numeric IP addresses, port numbers, and process details without performing DNS or service-name lookups.",
+          "stderr": "Reading additional input from stdin...\nOpenAI Codex v0.157.1\n--------\nworkdir: /Users/championswimmer/Development/Personal/LLM/zsh-llm-assist\nmodel: gpt-5.6-luna\nprovider: openai\napproval: never\nsandbox: danger-full-access\nreasoning effort: high\nreasoning summaries: none\nsession id: 01a0e3b2-435a-7853-a9da-dea23a4dc179\n--------\nuser\nYou are a Zsh expert helper. Explain what a specific shell command does using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Keep the explanation between 2 to 4 sentences. 2. Be clear and plain-spoken. 3. Do not repeat the command, just explain its effect. 4. Do not use Markdown formatting. Command to explain: lsof -iTCP -sTCP:LISTEN -n -P\nwarning: `--dangerously-bypass-hook-trust` is enabled. Enabled hooks may run without review for this invocation.\nwarning: `--dangerously-bypass-hook-trust` is enabled. Enabled hooks may run without review for this invocation.\nhook: SessionStart\nhook: SessionStart Completed\nhook: UserPromptSubmit\nhook: UserPromptSubmit Completed\ncodex\nLists processes that have TCP sockets open and listening for incoming connections. It shows numeric IP addresses, port numbers, and process details without performing DNS or service-name lookups.\nhook: Stop\nhook: Stop Completed\ntokens used\n4,411",
+          "command": [
+            "codex",
+            "exec",
+            "-m",
+            "gpt-5.6-luna",
+            "--dangerously-bypass-approvals-and-sandbox",
+            "--dangerously-bypass-hook-trust",
+            "You are a Zsh expert helper. Explain what a specific shell command does using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Keep the explanation between 2 to 4 sentences. 2. Be clear and plain-spoken. 3. Do not repeat the command, just explain its effect. 4. Do not use Markdown formatting. Command to explain: lsof -iTCP -sTCP:LISTEN -n -P"
+          ]
+        },
+        {
+          "case_id": "e4",
+          "kind": "explain",
+          "title": "awk-passwd-filter",
+          "input": "awk -F: '$3 >= 1000 && $7 !~ /nologin/ { print $1 }' /etc/passwd",
+          "elapsed_s": 9.293,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "It reads the password database using colons to separate fields. It selects accounts with user IDs of 1000 or higher whose login shell does not contain \u201cnologin,\u201d then prints their usernames.",
+          "stderr": "Reading additional input from stdin...\nOpenAI Codex v0.157.1\n--------\nworkdir: /Users/championswimmer/Development/Personal/LLM/zsh-llm-assist\nmodel: gpt-5.6-luna\nprovider: openai\napproval: never\nsandbox: danger-full-access\nreasoning effort: high\nreasoning summaries: none\nsession id: 01a0e3b2-5863-7dd1-bd92-02d43676c6c5\n--------\nuser\nYou are a Zsh expert helper. Explain what a specific shell command does using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Keep the explanation between 2 to 4 sentences. 2. Be clear and plain-spoken. 3. Do not repeat the command, just explain its effect. 4. Do not use Markdown formatting. Command to explain: awk -F: '$3 >= 1000 && $7 !~ /nologin/ { print $1 }' /etc/passwd\nwarning: `--dangerously-bypass-hook-trust` is enabled. Enabled hooks may run without review for this invocation.\nwarning: `--dangerously-bypass-hook-trust` is enabled. Enabled hooks may run without review for this invocation.\nhook: SessionStart\nhook: SessionStart Completed\nhook: UserPromptSubmit\nhook: UserPromptSubmit Completed\ncodex\nIt reads the password database using colons to separate fields. It selects accounts with user IDs of 1000 or higher whose login shell does not contain \u201cnologin,\u201d then prints their usernames.\nhook: Stop\nhook: Stop Completed\ntokens used\n4,463",
+          "command": [
+            "codex",
+            "exec",
+            "-m",
+            "gpt-5.6-luna",
+            "--dangerously-bypass-approvals-and-sandbox",
+            "--dangerously-bypass-hook-trust",
+            "You are a Zsh expert helper. Explain what a specific shell command does using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Keep the explanation between 2 to 4 sentences. 2. Be clear and plain-spoken. 3. Do not repeat the command, just explain its effect. 4. Do not use Markdown formatting. Command to explain: awk -F: '$3 >= 1000 && $7 !~ /nologin/ { print $1 }' /etc/passwd"
+          ]
+        },
+        {
+          "case_id": "e5",
+          "kind": "explain",
+          "title": "ssh-local-port-forward",
+          "input": "ssh -N -L 15432:db.internal:5432 bastion.example.com",
+          "elapsed_s": 5.774,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "It opens an SSH connection to the bastion host without running a remote command. It forwards local port 15432 through that connection to port 5432 on db.internal, allowing local programs to access the database securely via the bastion.",
+          "stderr": "Reading additional input from stdin...\nOpenAI Codex v0.157.1\n--------\nworkdir: /Users/championswimmer/Development/Personal/LLM/zsh-llm-assist\nmodel: gpt-5.6-luna\nprovider: openai\napproval: never\nsandbox: danger-full-access\nreasoning effort: high\nreasoning summaries: none\nsession id: 01a0e3b2-7cb0-7b72-a36a-bd7d82341e68\n--------\nuser\nYou are a Zsh expert helper. Explain what a specific shell command does using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Keep the explanation between 2 to 4 sentences. 2. Be clear and plain-spoken. 3. Do not repeat the command, just explain its effect. 4. Do not use Markdown formatting. Command to explain: ssh -N -L 15432:db.internal:5432 bastion.example.com\nwarning: `--dangerously-bypass-hook-trust` is enabled. Enabled hooks may run without review for this invocation.\nwarning: `--dangerously-bypass-hook-trust` is enabled. Enabled hooks may run without review for this invocation.\nhook: SessionStart\nhook: SessionStart Completed\nhook: UserPromptSubmit\nhook: UserPromptSubmit Completed\ncodex\nIt opens an SSH connection to the bastion host without running a remote command. It forwards local port 15432 through that connection to port 5432 on db.internal, allowing local programs to access the database securely via the bastion.\nhook: Stop\nhook: Stop Completed\ntokens used\n346",
+          "command": [
+            "codex",
+            "exec",
+            "-m",
+            "gpt-5.6-luna",
+            "--dangerously-bypass-approvals-and-sandbox",
+            "--dangerously-bypass-hook-trust",
+            "You are a Zsh expert helper. Explain what a specific shell command does using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Keep the explanation between 2 to 4 sentences. 2. Be clear and plain-spoken. 3. Do not repeat the command, just explain its effect. 4. Do not use Markdown formatting. Command to explain: ssh -N -L 15432:db.internal:5432 bastion.example.com"
+          ]
+        }
+      ]
+    },
+    {
+      "provider": "antigravity",
+      "label": "Antigravity CLI",
+      "binary": "agy",
+      "version": "1.2.12",
+      "model": "gemini-3.8-flash-low",
+      "success_count": 10,
+      "total_count": 10,
+      "suggest_total_s": 32.626,
+      "explain_total_s": 42.389,
+      "total_s": 75.015,
+      "avg_s": 7.502,
+      "note": "ok",
+      "cases": [
+        {
+          "case_id": "s1",
+          "kind": "suggest",
+          "title": "largest-files",
+          "input": "show the 20 largest files under the current directory",
+          "elapsed_s": 8.741,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "find . -type f -exec du -h {} + | sort -hr | head -n 20",
+          "stderr": "",
+          "command": [
+            "agy",
+            "--model",
+            "gemini-3.8-flash-low",
+            "--output-format",
+            "text",
+            "--dangerously-skip-permissions",
+            "--print=You are a Zsh command generator. Return ONLY the raw command string required to fulfill the user request using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Output MUST be a valid executable Zsh command. 2. NO markdown formatting (no backticks). 3. NO explanatory text. 4. NO leading/trailing whitespace. 5. If multiple steps are needed, chain them with && or ;. Request: show the 20 largest files under the current directory"
+          ]
+        },
+        {
+          "case_id": "s2",
+          "kind": "suggest",
+          "title": "large-log-files",
+          "input": "find every .log file larger than 100MB under /var/log",
+          "elapsed_s": 6.62,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "find /var/log -type f -name \"*.log\" -size +100M",
+          "stderr": "",
+          "command": [
+            "agy",
+            "--model",
+            "gemini-3.8-flash-low",
+            "--output-format",
+            "text",
+            "--dangerously-skip-permissions",
+            "--print=You are a Zsh command generator. Return ONLY the raw command string required to fulfill the user request using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Output MUST be a valid executable Zsh command. 2. NO markdown formatting (no backticks). 3. NO explanatory text. 4. NO leading/trailing whitespace. 5. If multiple steps are needed, chain them with && or ;. Request: find every .log file larger than 100MB under /var/log"
+          ]
+        },
+        {
+          "case_id": "s3",
+          "kind": "suggest",
+          "title": "count-todos",
+          "input": "count how many TODO comments exist in all JavaScript and TypeScript files in this tree",
+          "elapsed_s": 5.614,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "grep -rE \"TODO\" --include=\"*.js\" --include=\"*.jsx\" --include=\"*.ts\" --include=\"*.tsx\" . | wc -l",
+          "stderr": "",
+          "command": [
+            "agy",
+            "--model",
+            "gemini-3.8-flash-low",
+            "--output-format",
+            "text",
+            "--dangerously-skip-permissions",
+            "--print=You are a Zsh command generator. Return ONLY the raw command string required to fulfill the user request using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Output MUST be a valid executable Zsh command. 2. NO markdown formatting (no backticks). 3. NO explanatory text. 4. NO leading/trailing whitespace. 5. If multiple steps are needed, chain them with && or ;. Request: count how many TODO comments exist in all JavaScript and TypeScript files in this tree"
+          ]
+        },
+        {
+          "case_id": "s4",
+          "kind": "suggest",
+          "title": "tarball-excluding-deps",
+          "input": "create a gzipped tarball of the current directory excluding .git and node_modules",
+          "elapsed_s": 5.111,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "tar --exclude='./.git' --exclude='./node_modules' -czvf archive.tar.gz .",
+          "stderr": "",
+          "command": [
+            "agy",
+            "--model",
+            "gemini-3.8-flash-low",
+            "--output-format",
+            "text",
+            "--dangerously-skip-permissions",
+            "--print=You are a Zsh command generator. Return ONLY the raw command string required to fulfill the user request using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Output MUST be a valid executable Zsh command. 2. NO markdown formatting (no backticks). 3. NO explanatory text. 4. NO leading/trailing whitespace. 5. If multiple steps are needed, chain them with && or ;. Request: create a gzipped tarball of the current directory excluding .git and node_modules"
+          ]
+        },
+        {
+          "case_id": "s5",
+          "kind": "suggest",
+          "title": "disk-usage-top-level",
+          "input": "show disk usage for each top-level directory sorted from largest to smallest",
+          "elapsed_s": 6.54,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "du -sh /* 2>/dev/null | sort -hr",
+          "stderr": "",
+          "command": [
+            "agy",
+            "--model",
+            "gemini-3.8-flash-low",
+            "--output-format",
+            "text",
+            "--dangerously-skip-permissions",
+            "--print=You are a Zsh command generator. Return ONLY the raw command string required to fulfill the user request using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Output MUST be a valid executable Zsh command. 2. NO markdown formatting (no backticks). 3. NO explanatory text. 4. NO leading/trailing whitespace. 5. If multiple steps are needed, chain them with && or ;. Request: show disk usage for each top-level directory sorted from largest to smallest"
+          ]
+        },
+        {
+          "case_id": "e1",
+          "kind": "explain",
+          "title": "find-xargs-sha256sum",
+          "input": "find . -type f -print0 | xargs -0 sha256sum | sort -k2",
+          "elapsed_s": 7.601,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "This pipeline searches the current directory and all subdirectories for regular files, safely passing their paths through null delimiters to handle spaces or unusual characters in names. It computes the SHA-256 checksum for each discovered file using those paths. Finally, it sorts the output alphabetically by the file path so you get an organized list of checksums and their corresponding files.",
+          "stderr": "",
+          "command": [
+            "agy",
+            "--model",
+            "gemini-3.8-flash-low",
+            "--output-format",
+            "text",
+            "--dangerously-skip-permissions",
+            "--print=You are a Zsh expert helper. Explain what a specific shell command does using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Keep the explanation between 2 to 4 sentences. 2. Be clear and plain-spoken. 3. Do not repeat the command, just explain its effect. 4. Do not use Markdown formatting. Command to explain: find . -type f -print0 | xargs -0 sha256sum | sort -k2"
+          ]
+        },
+        {
+          "case_id": "e2",
+          "kind": "explain",
+          "title": "rsync-delete-progress",
+          "input": "rsync -avz --delete --partial --info=progress2 src/ remote:/backup/",
+          "elapsed_s": 9.546,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "This command synchronizes the contents of the local src directory to the backup directory on a remote server while preserving file permissions, timestamps, and symlinks. It compresses data during transfer for speed, removes any files from the remote destination that no longer exist locally, and preserves partially transferred files so interrupted transfers can resume. Throughout the operation, it displays an overall real-time progress bar and transfer statistics in your terminal.",
+          "stderr": "",
+          "command": [
+            "agy",
+            "--model",
+            "gemini-3.8-flash-low",
+            "--output-format",
+            "text",
+            "--dangerously-skip-permissions",
+            "--print=You are a Zsh expert helper. Explain what a specific shell command does using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Keep the explanation between 2 to 4 sentences. 2. Be clear and plain-spoken. 3. Do not repeat the command, just explain its effect. 4. Do not use Markdown formatting. Command to explain: rsync -avz --delete --partial --info=progress2 src/ remote:/backup/"
+          ]
+        },
+        {
+          "case_id": "e3",
+          "kind": "explain",
+          "title": "lsof-listening-tcp",
+          "input": "lsof -iTCP -sTCP:LISTEN -n -P",
+          "elapsed_s": 8.027,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "This command lists all open TCP ports currently listening for incoming network connections along with the processes using them. It displays raw numerical IP addresses and port numbers instead of converting them into hostnames or service names, making the output faster to generate and easier to read. This is commonly used to see which network services are running on your machine or to troubleshoot port conflicts.",
+          "stderr": "",
+          "command": [
+            "agy",
+            "--model",
+            "gemini-3.8-flash-low",
+            "--output-format",
+            "text",
+            "--dangerously-skip-permissions",
+            "--print=You are a Zsh expert helper. Explain what a specific shell command does using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Keep the explanation between 2 to 4 sentences. 2. Be clear and plain-spoken. 3. Do not repeat the command, just explain its effect. 4. Do not use Markdown formatting. Command to explain: lsof -iTCP -sTCP:LISTEN -n -P"
+          ]
+        },
+        {
+          "case_id": "e4",
+          "kind": "explain",
+          "title": "awk-passwd-filter",
+          "input": "awk -F: '$3 >= 1000 && $7 !~ /nologin/ { print $1 }' /etc/passwd",
+          "elapsed_s": 7.717,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "This command scans the system user database to find standard, interactive user accounts. It filters for accounts with a user ID of 1000 or higher whose login shell is not set to disable logins. For every matching account, it outputs only the username.",
+          "stderr": "",
+          "command": [
+            "agy",
+            "--model",
+            "gemini-3.8-flash-low",
+            "--output-format",
+            "text",
+            "--dangerously-skip-permissions",
+            "--print=You are a Zsh expert helper. Explain what a specific shell command does using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Keep the explanation between 2 to 4 sentences. 2. Be clear and plain-spoken. 3. Do not repeat the command, just explain its effect. 4. Do not use Markdown formatting. Command to explain: awk -F: '$3 >= 1000 && $7 !~ /nologin/ { print $1 }' /etc/passwd"
+          ]
+        },
+        {
+          "case_id": "e5",
+          "kind": "explain",
+          "title": "ssh-local-port-forward",
+          "input": "ssh -N -L 15432:db.internal:5432 bastion.example.com",
+          "elapsed_s": 9.498,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "This command establishes a secure SSH tunnel to the bastion server without opening an interactive shell session. It forwards local port 15432 to port 5432 on the internal database host through that bastion. Any traffic sent to port 15432 on your local machine is securely encrypted and routed directly to the database.",
+          "stderr": "",
+          "command": [
+            "agy",
+            "--model",
+            "gemini-3.8-flash-low",
+            "--output-format",
+            "text",
+            "--dangerously-skip-permissions",
+            "--print=You are a Zsh expert helper. Explain what a specific shell command does using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Keep the explanation between 2 to 4 sentences. 2. Be clear and plain-spoken. 3. Do not repeat the command, just explain its effect. 4. Do not use Markdown formatting. Command to explain: ssh -N -L 15432:db.internal:5432 bastion.example.com"
+          ]
+        }
+      ]
+    },
+    {
+      "provider": "grok-build",
+      "label": "Grok Build CLI",
+      "binary": "agent",
+      "version": "grok 1.0.4 (d846eb93d94d) [stable]",
+      "model": "grok-4.7-build-fast",
+      "success_count": 10,
+      "total_count": 10,
+      "suggest_total_s": 67.49,
+      "explain_total_s": 32.912,
+      "total_s": 100.402,
+      "avg_s": 10.04,
+      "note": "ok",
+      "cases": [
+        {
+          "case_id": "s1",
+          "kind": "suggest",
+          "title": "largest-files",
+          "input": "show the 20 largest files under the current directory",
+          "elapsed_s": 11.356,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "find . -type f -exec du -k {} + | sort -nr | head -20",
+          "stderr": "",
+          "command": [
+            "agent",
+            "-p",
+            "You are a Zsh command generator. Return ONLY the raw command string required to fulfill the user request using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Output MUST be a valid executable Zsh command. 2. NO markdown formatting (no backticks). 3. NO explanatory text. 4. NO leading/trailing whitespace. 5. If multiple steps are needed, chain them with && or ;. Request: show the 20 largest files under the current directory",
+            "--output-format",
+            "plain",
+            "--permission-mode",
+            "bypassPermissions",
+            "--model",
+            "grok-4.7-build-fast"
+          ]
+        },
+        {
+          "case_id": "s2",
+          "kind": "suggest",
+          "title": "large-log-files",
+          "input": "find every .log file larger than 100MB under /var/log",
+          "elapsed_s": 6.199,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "find /var/log -type f -name '*.log' -size +100M",
+          "stderr": "",
+          "command": [
+            "agent",
+            "-p",
+            "You are a Zsh command generator. Return ONLY the raw command string required to fulfill the user request using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Output MUST be a valid executable Zsh command. 2. NO markdown formatting (no backticks). 3. NO explanatory text. 4. NO leading/trailing whitespace. 5. If multiple steps are needed, chain them with && or ;. Request: find every .log file larger than 100MB under /var/log",
+            "--output-format",
+            "plain",
+            "--permission-mode",
+            "bypassPermissions",
+            "--model",
+            "grok-4.7-build-fast"
+          ]
+        },
+        {
+          "case_id": "s3",
+          "kind": "suggest",
+          "title": "count-todos",
+          "input": "count how many TODO comments exist in all JavaScript and TypeScript files in this tree",
+          "elapsed_s": 16.97,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "grep -rIE --include='*.js' --include='*.jsx' --include='*.mjs' --include='*.cjs' --include='*.ts' --include='*.tsx' --include='*.mts' --include='*.cts' '(//|\\*|/\\*).*TODO' . | wc -l",
+          "stderr": "",
+          "command": [
+            "agent",
+            "-p",
+            "You are a Zsh command generator. Return ONLY the raw command string required to fulfill the user request using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Output MUST be a valid executable Zsh command. 2. NO markdown formatting (no backticks). 3. NO explanatory text. 4. NO leading/trailing whitespace. 5. If multiple steps are needed, chain them with && or ;. Request: count how many TODO comments exist in all JavaScript and TypeScript files in this tree",
+            "--output-format",
+            "plain",
+            "--permission-mode",
+            "bypassPermissions",
+            "--model",
+            "grok-4.7-build-fast"
+          ]
+        },
+        {
+          "case_id": "s4",
+          "kind": "suggest",
+          "title": "tarball-excluding-deps",
+          "input": "create a gzipped tarball of the current directory excluding .git and node_modules",
+          "elapsed_s": 15.664,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "tar --exclude='.git' --exclude='node_modules' -czf archive.tar.gz .",
+          "stderr": "",
+          "command": [
+            "agent",
+            "-p",
+            "You are a Zsh command generator. Return ONLY the raw command string required to fulfill the user request using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Output MUST be a valid executable Zsh command. 2. NO markdown formatting (no backticks). 3. NO explanatory text. 4. NO leading/trailing whitespace. 5. If multiple steps are needed, chain them with && or ;. Request: create a gzipped tarball of the current directory excluding .git and node_modules",
+            "--output-format",
+            "plain",
+            "--permission-mode",
+            "bypassPermissions",
+            "--model",
+            "grok-4.7-build-fast"
+          ]
+        },
+        {
+          "case_id": "s5",
+          "kind": "suggest",
+          "title": "disk-usage-top-level",
+          "input": "show disk usage for each top-level directory sorted from largest to smallest",
+          "elapsed_s": 17.301,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "du -sh /*/ 2>/dev/null | sort -hr",
+          "stderr": "",
+          "command": [
+            "agent",
+            "-p",
+            "You are a Zsh command generator. Return ONLY the raw command string required to fulfill the user request using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Output MUST be a valid executable Zsh command. 2. NO markdown formatting (no backticks). 3. NO explanatory text. 4. NO leading/trailing whitespace. 5. If multiple steps are needed, chain them with && or ;. Request: show disk usage for each top-level directory sorted from largest to smallest",
+            "--output-format",
+            "plain",
+            "--permission-mode",
+            "bypassPermissions",
+            "--model",
+            "grok-4.7-build-fast"
+          ]
+        },
+        {
+          "case_id": "e1",
+          "kind": "explain",
+          "title": "find-xargs-sha256sum",
+          "input": "find . -type f -print0 | xargs -0 sha256sum | sort -k2",
+          "elapsed_s": 7.402,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "This searches the current directory and everything under it for regular files, then computes a SHA-256 checksum for each one. Null separators keep names that contain spaces or unusual characters from being split. The checksum lines are then sorted by filename, so the list is ordered by path rather than by hash.",
+          "stderr": "",
+          "command": [
+            "agent",
+            "-p",
+            "You are a Zsh expert helper. Explain what a specific shell command does using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Keep the explanation between 2 to 4 sentences. 2. Be clear and plain-spoken. 3. Do not repeat the command, just explain its effect. 4. Do not use Markdown formatting. Command to explain: find . -type f -print0 | xargs -0 sha256sum | sort -k2",
+            "--output-format",
+            "plain",
+            "--permission-mode",
+            "bypassPermissions",
+            "--model",
+            "grok-4.7-build-fast"
+          ]
+        },
+        {
+          "case_id": "e2",
+          "kind": "explain",
+          "title": "rsync-delete-progress",
+          "input": "rsync -avz --delete --partial --info=progress2 src/ remote:/backup/",
+          "elapsed_s": 6.3,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "This copies the contents of the local src directory to a remote backup directory, preserving permissions, ownership, timestamps, and links while compressing the data in transit. It also removes anything on the remote side that is no longer present locally, so the backup mirrors the source. If a transfer is interrupted, partially copied files are kept so a later run can resume them, and a single overall progress line is shown instead of one line per file.",
+          "stderr": "",
+          "command": [
+            "agent",
+            "-p",
+            "You are a Zsh expert helper. Explain what a specific shell command does using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Keep the explanation between 2 to 4 sentences. 2. Be clear and plain-spoken. 3. Do not repeat the command, just explain its effect. 4. Do not use Markdown formatting. Command to explain: rsync -avz --delete --partial --info=progress2 src/ remote:/backup/",
+            "--output-format",
+            "plain",
+            "--permission-mode",
+            "bypassPermissions",
+            "--model",
+            "grok-4.7-build-fast"
+          ]
+        },
+        {
+          "case_id": "e3",
+          "kind": "explain",
+          "title": "lsof-listening-tcp",
+          "input": "lsof -iTCP -sTCP:LISTEN -n -P",
+          "elapsed_s": 5.97,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "This lists processes that are listening for incoming TCP connections. It shows only sockets in the listen state, and it prints numeric IP addresses and port numbers instead of looking up hostnames or service names. You use it to see which programs are bound to which ports.",
+          "stderr": "",
+          "command": [
+            "agent",
+            "-p",
+            "You are a Zsh expert helper. Explain what a specific shell command does using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Keep the explanation between 2 to 4 sentences. 2. Be clear and plain-spoken. 3. Do not repeat the command, just explain its effect. 4. Do not use Markdown formatting. Command to explain: lsof -iTCP -sTCP:LISTEN -n -P",
+            "--output-format",
+            "plain",
+            "--permission-mode",
+            "bypassPermissions",
+            "--model",
+            "grok-4.7-build-fast"
+          ]
+        },
+        {
+          "case_id": "e4",
+          "kind": "explain",
+          "title": "awk-passwd-filter",
+          "input": "awk -F: '$3 >= 1000 && $7 !~ /nologin/ { print $1 }' /etc/passwd",
+          "elapsed_s": 7.34,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "This reads the system user database and treats each colon-separated line as one account. It keeps only accounts whose numeric user ID is 1000 or higher and whose login shell does not contain \u201cnologin,\u201d which usually means ordinary users who are allowed to log in. For each of those accounts it prints just the username. System accounts and accounts that are locked out of interactive login are skipped.",
+          "stderr": "",
+          "command": [
+            "agent",
+            "-p",
+            "You are a Zsh expert helper. Explain what a specific shell command does using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Keep the explanation between 2 to 4 sentences. 2. Be clear and plain-spoken. 3. Do not repeat the command, just explain its effect. 4. Do not use Markdown formatting. Command to explain: awk -F: '$3 >= 1000 && $7 !~ /nologin/ { print $1 }' /etc/passwd",
+            "--output-format",
+            "plain",
+            "--permission-mode",
+            "bypassPermissions",
+            "--model",
+            "grok-4.7-build-fast"
+          ]
+        },
+        {
+          "case_id": "e5",
+          "kind": "explain",
+          "title": "ssh-local-port-forward",
+          "input": "ssh -N -L 15432:db.internal:5432 bastion.example.com",
+          "elapsed_s": 5.9,
+          "ok": true,
+          "exit_code": 0,
+          "stdout": "This opens an SSH connection to bastion.example.com and keeps it running without starting a remote shell. It forwards your local port 15432 through that connection to port 5432 on db.internal, as seen from the bastion. Anything you send to localhost:15432 is carried over the tunnel and delivered to that database port, and the tunnel stays up until you stop the command.",
+          "stderr": "",
+          "command": [
+            "agent",
+            "-p",
+            "You are a Zsh expert helper. Explain what a specific shell command does using only general shell knowledge. Rules: 0. No tool usage or extra thinking. 1. Keep the explanation between 2 to 4 sentences. 2. Be clear and plain-spoken. 3. Do not repeat the command, just explain its effect. 4. Do not use Markdown formatting. Command to explain: ssh -N -L 15432:db.internal:5432 bastion.example.com",
+            "--output-format",
+            "plain",
+            "--permission-mode",
+            "bypassPermissions",
+            "--model",
+            "grok-4.7-build-fast"
+          ]
+        }
+      ]
+    }
+  ]
+}

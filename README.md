@@ -119,6 +119,27 @@ export ZSH_LLM_BIN_PATH="/opt/bin/custom-gemini-cli"
 ```
 *Note: If unset, it defaults to the selected tool's binary. Built-in mappings are `antigravity -> agy` and `grok-build -> agent`.*
 
+## Benchmark
+
+Reproducible CLI latency benchmarks live in [`benchmark/`](benchmark). This suite intentionally excludes OpenCode because it can front any model and would not be a provider-specific comparison.
+
+### Latest local run
+
+<!-- benchmark-table:start -->
+_Last benchmark run: 2026-09-27T16:26:28+00:00_
+
+| CLI | Model | Version | Success | Suggest total (s) | Explain total (s) | Total (s) | Avg / prompt (s) | Notes |
+|---|---|---|---|---|---|---|---|---|
+| Claude CLI | haiku | 2.1.280 (Claude Code) | 10/10 | 32.875 | 34.161 | 67.036 | 6.704 | ok |
+| Codex CLI | gpt-5.6-luna | codex-cli 0.157.1 | 10/10 | 35.530 | 35.483 | 71.013 | 7.101 | ok |
+| Antigravity CLI | gemini-3.8-flash-low | 1.2.12 | 10/10 | 32.626 | 42.389 | 75.015 | 7.502 | ok |
+| Grok Build CLI | grok-4.7-build-fast | grok 1.0.4 (d846eb93d94d) [stable] | 10/10 | 67.490 | 32.912 | 100.402 | 10.040 | ok |
+
+Sequential suite wall-clock total across all compared CLIs: 313.466s.
+
+Prompt corpus: 5 suggest requests + 5 explain requests from `benchmark/prompts.json`, using the same prompt wrappers as the plugin.
+<!-- benchmark-table:end -->
+
 ## License
 
 MIT

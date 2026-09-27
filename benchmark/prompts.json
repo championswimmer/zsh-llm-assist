@@ -1,0 +1,56 @@
+{
+  "suggest": [
+    {
+      "id": "s1",
+      "title": "largest-files",
+      "input": "show the 20 largest files under the current directory"
+    },
+    {
+      "id": "s2",
+      "title": "large-log-files",
+      "input": "find every .log file larger than 100MB under /var/log"
+    },
+    {
+      "id": "s3",
+      "title": "count-todos",
+      "input": "count how many TODO comments exist in all JavaScript and TypeScript files in this tree"
+    },
+    {
+      "id": "s4",
+      "title": "tarball-excluding-deps",
+      "input": "create a gzipped tarball of the current directory excluding .git and node_modules"
+    },
+    {
+      "id": "s5",
+      "title": "disk-usage-top-level",
+      "input": "show disk usage for each top-level directory sorted from largest to smallest"
+    }
+  ],
+  "explain": [
+    {
+      "id": "e1",
+      "title": "find-xargs-sha256sum",
+      "input": "find . -type f -print0 | xargs -0 sha256sum | sort -k2"
+    },
+    {
+      "id": "e2",
+      "title": "rsync-delete-progress",
+      "input": "rsync -avz --delete --partial --info=progress2 src/ remote:/backup/"
+    },
+    {
+      "id": "e3",
+      "title": "lsof-listening-tcp",
+      "input": "lsof -iTCP -sTCP:LISTEN -n -P"
+    },
+    {
+      "id": "e4",
+      "title": "awk-passwd-filter",
+      "input": "awk -F: '$3 >= 1000 && $7 !~ /nologin/ { print $1 }' /etc/passwd"
+    },
+    {
+      "id": "e5",
+      "title": "ssh-local-port-forward",
+      "input": "ssh -N -L 15432:db.internal:5432 bastion.example.com"
+    }
+  ]
+}
