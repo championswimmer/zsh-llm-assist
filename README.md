@@ -8,7 +8,7 @@ A Zsh plugin that brings the power of Large Language Models (LLMs) directly to y
 
 -   **Explain Command (`Ctrl+X` `e`)**: Get a clear, plain-English explanation of the command currently in your buffer.
 -   **Suggest Command (`Ctrl+X` `s`)**: Type what you want to do in natural language, and let the LLM replace it with the correct shell command.
--   **Multi-Provider Support**: Works with `copilot`, `gemini`, `claude`, `codex`, `cursor`, `antigravity`, `grok-build`, and `opencode` CLI tools.
+-   **Multi-Provider Support**: Works with `copilot`, `gemini`, `claude`, `codex`, `antigravity`, `grok-build`, and `opencode` CLI tools.
 -   **Non-Blocking UI**: Features a visual loading indicator ("Thinking...", "Suggesting...") that doesn't freeze your shell, powered by `zsh/zselect`.
 -   **Persistent Output**: Explanations and errors are printed above your prompt so they don't vanish when you continue typing.
 
@@ -20,7 +20,6 @@ A Zsh plugin that brings the power of Large Language Models (LLMs) directly to y
 -   **[Gemini CLI](https://github.com/google/gemini-cli)**: `gemini`
 -   **[Claude Code](https://github.com/anthropics/claude-code)**: `claude`
 -   **[Codex CLI](https://github.com/openai/codex-cli)**: `codex`
--   **[Cursor CLI](https://cursor.com/docs/cli/overview)**: `cursor-agent`
 -   **[Google Antigravity CLI](https://antigravity.google/)**: `agy` (the plugin maps `antigravity` -> `agy` by default)
 -   **[Grok Build TUI](https://x.ai/)**: `agent` (the plugin maps `grok-build` -> `agent` by default)
 -   **[OpenCode](https://opencode.ai/)**: `opencode`
@@ -81,7 +80,7 @@ You can configure the plugin by setting variables in your `.zshrc`.
 Choose which CLI tool to use. Default is `gemini`.
 
 ```zsh
-export ZSH_LLM_CLI_TOOL="gemini" # Options: copilot, gemini, claude, codex, cursor, antigravity, grok-build, opencode
+export ZSH_LLM_CLI_TOOL="gemini" # Options: copilot, gemini, claude, codex, antigravity, grok-build, opencode
 ```
 
 ### Customizing Keyboard Shortcuts
@@ -100,7 +99,6 @@ Override the default models for specific tools:
 export ZSH_LLM_GEMINI_MODEL="gemini-1.5-pro"
 export ZSH_LLM_CLAUDE_MODEL="haiku"
 export ZSH_LLM_CODEX_MODEL="gpt-5.4-mini"
-export ZSH_LLM_CURSOR_MODEL="" # leave empty to use Cursor's current default model
 export ZSH_LLM_ANTIGRAVITY_MODEL="gemini-3.8-flash-low"
 export ZSH_LLM_GROK_BUILD_MODEL="grok-4.7-build-fast"
 export ZSH_LLM_OPENCODE_MODEL="xai/grok-code-fast-1"
@@ -119,7 +117,7 @@ If your CLI tool is not in your `$PATH` or has a different name, you can specify
 ```zsh
 export ZSH_LLM_BIN_PATH="/opt/bin/custom-gemini-cli"
 ```
-*Note: If unset, it defaults to the selected tool's binary. Built-in mappings are `cursor -> cursor-agent`, `antigravity -> agy`, and `grok-build -> agent`.*
+*Note: If unset, it defaults to the selected tool's binary. Built-in mappings are `antigravity -> agy` and `grok-build -> agent`.*
 
 ## License
 

@@ -17,7 +17,6 @@ if [[ -n "$TARGET_MODEL" ]]; then
         gemini) export ZSH_LLM_GEMINI_MODEL="$TARGET_MODEL" ;;
         claude) export ZSH_LLM_CLAUDE_MODEL="$TARGET_MODEL" ;;
         codex) export ZSH_LLM_CODEX_MODEL="$TARGET_MODEL" ;;
-        cursor) export ZSH_LLM_CURSOR_MODEL="$TARGET_MODEL" ;;
         antigravity) export ZSH_LLM_ANTIGRAVITY_MODEL="$TARGET_MODEL" ;;
         grok-build) export ZSH_LLM_GROK_BUILD_MODEL="$TARGET_MODEL" ;;
         copilot) export ZSH_LLM_COPILOT_MODEL="$TARGET_MODEL" ;;
@@ -67,7 +66,6 @@ function define_mock_tool() {
 
 if [[ "${REAL_API:-false}" != "true" ]]; then
     case "$ZSH_LLM_CLI_TOOL" in
-        cursor) define_mock_tool "cursor-agent" ;;
         antigravity) define_mock_tool "agy" ;;
         grok-build) define_mock_tool "agent" ;;
         *) define_mock_tool "$ZSH_LLM_CLI_TOOL" ;;
@@ -139,12 +137,6 @@ assert_provider_flags() {
             assert_contains "$args_joined" "exec -m ${TARGET_MODEL:-gpt-5.4-mini}" "Codex command should use exec with the configured model"
             assert_contains "$args_joined" "--dangerously-bypass-approvals-and-sandbox" "Codex command should bypass approvals and sandbox"
             assert_contains "$args_joined" "--dangerously-bypass-hook-trust" "Codex command should bypass hook trust"
-            ;;
-        cursor)
-            assert_contains "$args_joined" "--print --output-format text --force" "Cursor command should use non-interactive forced print mode"
-            if [[ -n "$TARGET_MODEL" ]]; then
-                assert_contains "$args_joined" "--model $TARGET_MODEL" "Cursor command should set an explicit model when configured"
-            fi
             ;;
         antigravity)
             assert_contains "$args_joined" "--model ${TARGET_MODEL:-gemini-3.8-flash-low}" "Antigravity command should set the configured model"

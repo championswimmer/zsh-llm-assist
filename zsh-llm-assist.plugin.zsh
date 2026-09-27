@@ -4,12 +4,12 @@
 
 zmodload zsh/zselect
 
-# 1. Select the tool to use: "codex", "claude", "cursor", "antigravity", "grok-build", "gemini", "opencode" or "copilot"
+# 1. Select the tool to use: "codex", "claude", "antigravity", "grok-build", "gemini", "opencode" or "copilot"
 : ${ZSH_LLM_CLI_TOOL:="gemini"}
 
 # 2. Path to binary (Optional override)
 # If unset, the plugin will derive the binary from ZSH_LLM_CLI_TOOL.
-# Built-in mappings: cursor -> cursor-agent, antigravity -> agy, grok-build -> agent.
+# Built-in mappings: antigravity -> agy, grok-build -> agent.
 # : ${ZSH_LLM_BIN_PATH:="/full/path/to/your-cli"}
 
 # 3. Debug Mode (default: false)
@@ -20,7 +20,6 @@ zmodload zsh/zselect
 : ${ZSH_LLM_GEMINI_MODEL:="gemini-3-flash-preview"}
 : ${ZSH_LLM_CLAUDE_MODEL:="haiku"}
 : ${ZSH_LLM_CODEX_MODEL:="gpt-5.4-mini"}
-: ${ZSH_LLM_CURSOR_MODEL:=""}
 : ${ZSH_LLM_ANTIGRAVITY_MODEL:="gemini-3.8-flash-low"}
 : ${ZSH_LLM_GROK_BUILD_MODEL:="grok-4.7-build-fast"}
 : ${ZSH_LLM_COPILOT_MODEL:="claude-haiku-4.5"}
@@ -63,7 +62,6 @@ _llm_sanitize_suggestion() {
 
 _llm_resolve_tool_binary() {
     case "$1" in
-        cursor) echo "cursor-agent" ;;
         antigravity) echo "agy" ;;
         grok-build) echo "agent" ;;
         *) echo "$1" ;;
@@ -116,12 +114,6 @@ _llm_call_provider() {
         codex)
             model="$ZSH_LLM_CODEX_MODEL"
             cmd_args+=("exec" "-m" "$model" "--dangerously-bypass-approvals-and-sandbox" "--dangerously-bypass-hook-trust" "$prompt")
-            ;;
-        cursor)
-            model="$ZSH_LLM_CURSOR_MODEL"
-            cmd_args+=("--print" "--output-format" "text" "--force")
-            [[ -n "$model" ]] && cmd_args+=("--model" "$model")
-            cmd_args+=("$prompt")
             ;;
         antigravity)
             model="$ZSH_LLM_ANTIGRAVITY_MODEL"
